@@ -40,9 +40,9 @@ class lenandoDE extends CSVPluginGenerator
 
     const DELIMITER = ";";
 	
-    const STATUS_VISIBLE = 1;
-    const STATUS_LOCKED = 0;
-    const STATUS_HIDDEN = 0;
+    const STATUS_VISIBLE = 3;
+    const STATUS_LOCKED = 1;
+    const STATUS_HIDDEN = 2;
 
     /**
      * @var ElasticExportCoreHelper $elasticExportHelper
@@ -260,7 +260,10 @@ class lenandoDE extends CSVPluginGenerator
                             }
 
                             // Build the new row for printing in the CSV file
+                           
                             $this->buildRow($variation, $settings, $attributes);
+                            
+                            
                         }
                         catch(\Throwable $throwable)
                         {
@@ -373,7 +376,7 @@ class lenandoDE extends CSVPluginGenerator
         $priceList = $this->elasticExportPriceHelper->getPriceList($variation, $settings);
 
         // Only variations with the Retail Price greater than zero will be handled
-        if(!is_null($priceList['price']) && $priceList['price'] > 0)
+        if(!is_null($priceList['price']) && $priceList['price'] > 0 && $this->stockHelper->getStock($variation) > 0)
         {
             // Get shipping cost
             $shippingCost = $this->getShippingCost($variation);
@@ -395,73 +398,6 @@ class lenandoDE extends CSVPluginGenerator
             
             
             
-           
-			$unit = str_replace("EA", "Stück",$basePriceList['unit']);
-			$unit = str_replace("DPC", "12 Stück",$unit);
-			$unit = str_replace("OP", "2er Pack",$unit);
-			$unit = str_replace("BL", "Ballen",$unit);
-			$unit = str_replace("DI", "Behälter",$unit);
-			$unit = str_replace("BG", "Beutel",$unit);
-			$unit = str_replace("ST", "Blatt",$unit);
-			$unit = str_replace("D64", "Block",$unit);
-			$unit = str_replace("PD", "Block",$unit);
-			$unit = str_replace("PD", "Block",$unit);
-			$unit = str_replace("QR", "Bogen",$unit);
-			$unit = str_replace("BX", "Box",$unit);
-			$unit = str_replace("CL", "Bund",$unit);
-			$unit = str_replace("CH", "Container",$unit);
-			$unit = str_replace("TN", "Dose",$unit);
-			$unit = str_replace("CA", "Dose/Büchse",$unit);
-			$unit = str_replace("DZN", "Dutzend",$unit);
-			$unit = str_replace("C62", "Stück",$unit);
-			$unit = str_replace("KGM", "kg",$unit);
-			$unit = str_replace("GRM", "g",$unit);
-			$unit = str_replace("MGM", "mg",$unit);
-			$unit = str_replace("LTR", "l",$unit);
-			$unit = str_replace("DPC", "12 Stück",$unit);
-			$unit = str_replace("OP", "2er Pack",$unit);
-			$unit = str_replace("BL", "Ballen",$unit);
-			$unit = str_replace("DI", "Behälter",$unit);
-			$unit = str_replace("BG", "Beutel",$unit);
-			$unit = str_replace("ST", "Blatt",$unit);
-			$unit = str_replace("D64", "Block",$unit);
-			$unit = str_replace("PD", "Block",$unit);
-			$unit = str_replace("QR", "Bogen",$unit);
-			$unit = str_replace("BX", "Box",$unit);
-			$unit = str_replace("CL", "Bund",$unit);
-			$unit = str_replace("CH", "Container",$unit);
-			$unit = str_replace("TN", "Dose",$unit);
-			$unit = str_replace("CA", "Dose/Büchse",$unit);
-			$unit = str_replace("DZN", "Dutzend",$unit);
-			$unit = str_replace("BJ", "Eimer",$unit);
-			$unit = str_replace("CS", "Etui",$unit);
-			$unit = str_replace("Z3", "Fass",$unit);
-			$unit = str_replace("BO", "Flasche",$unit);
-			$unit = str_replace("OZA", "Flüssigunze",$unit);
-			$unit = str_replace("JR", "Glas/Gefäß",$unit);
-			$unit = str_replace("CG", "Karton",$unit);
-			$unit = str_replace("CT", "Kartonage",$unit);
-			$unit = str_replace("KT", "Kit",$unit);
-			$unit = str_replace("AA", "Knäuel",$unit);
-			$unit = str_replace("MTR", "Meter",$unit);
-			$unit = str_replace("MLT", "ml",$unit);
-			$unit = str_replace("MMT", "Millimeter",$unit);
-			$unit = str_replace("PR", "Paar",$unit);
-			$unit = str_replace("PA", "Päckchen",$unit);
-			$unit = str_replace("PK", "Paket",$unit);
-			$unit = str_replace("D97", "Palette",$unit);
-			$unit = str_replace("MTK", "Quadratmeter",$unit);
-			$unit = str_replace("CMK", "Quadratzentimeter",$unit);
-			$unit = str_replace("MMK", "Quadratmillimeter",$unit);
-			$unit = str_replace("RO", "Rolle",$unit);
-			$unit = str_replace("SA", "Sack",$unit);
-			$unit = str_replace("SET", "Satz",$unit);
-			$unit = str_replace("RL", "Spule",$unit);
-			$unit = str_replace("TU", "Tube/Rohr",$unit);
-			$unit = str_replace("OZ", "Unze",$unit);
-			$unit = str_replace("WE", "Wascheinheit",$unit);
-			$unit = str_replace("CMT", "Zentimeter",$unit);
-			$unit = str_replace("INH", "Zoll",$unit);
             
             $attributenliste = (strlen($attributes) ? ',' . $attributes : '');
             
@@ -494,8 +430,10 @@ class lenandoDE extends CSVPluginGenerator
             $effizienzklasse = str_replace("9", "F",$effizienzklasse);
             $effizienzklasse = str_replace("10", "G",$effizienzklasse);
             
+            $basePriceComponentList = $this->getBasePriceComponentList($variation);
             
-
+           
+            
             $data = [
             'Produktname'			=> $this->elasticExportHelper->getMutatedName($variation, $settings),
 			'Artikelnummer'			=> $variation['data']['variation']['number'],
@@ -525,8 +463,8 @@ class lenandoDE extends CSVPluginGenerator
 			'Familienname2'			=> '',
 			'Eigenschaft2'			=> '',
 			'ID'					=> $this->elasticExportHelper->generateSku($variation['id'], self::LENANDO_DE, 0, $variation['data']['skus'][0]['sku']),
-			'Einheit'				=> $unit,
-			'Inhalt'				=> $basePriceList['lot'],
+			'Einheit'				=> $basePriceComponentList['unit'], //$unit,
+			'Inhalt'				=> strlen($basePriceComponentList['unit']) ? number_format((float)$basePriceComponentList['content'],3,',','') : '', //$basePriceList['lot'],
 			'Freifeld1'				=> $variation['data']['item']['free1'],
 			'Freifeld2'				=> $variation['data']['item']['free2'],
 			'Freifeld3'				=> $variation['data']['item']['free3'],
@@ -572,6 +510,10 @@ class lenandoDE extends CSVPluginGenerator
     
     
     
+    
+
+	
+    
     // NEU
     
     
@@ -612,6 +554,150 @@ class lenandoDE extends CSVPluginGenerator
     }
     
     // NEU
+    
+    
+    /**
+     * Get necessary components to enable Rakuten to calculate a base price for the variation
+     * @param array $item
+     * @return array
+     */
+    private function getBasePriceComponentList($variation):array
+    {
+        $unit = $this->getUnit($variation);
+        $content = (float)$variation['data']['unit']['content'];
+        $convertBasePriceContentTag = $this->elasticExportHelper->getConvertContentTag($content, 3);
+        if ($convertBasePriceContentTag == true && strlen($unit))
+        {
+            $content = $this->elasticExportHelper->getConvertedBasePriceContent($content, $unit);
+            $unit = $this->elasticExportHelper->getConvertedBasePriceUnit($unit);
+        }
+        return array(
+            'content'   =>  $content,
+            'unit'      =>  $unit,
+        );
+    }
+    
+    
+/**
+     * Returns the unit, if there is any unit configured, which is allowed
+     * for the Rakuten.de API.
+     *
+     * @param  array   $item
+     * @return string
+     */
+    private function getUnit($variation):string
+    {
+        switch((int) $variation['data']['unit']['id'])
+        {
+            case '1':
+				return 'Stück';
+			case '2':
+				return 'kg';
+			case '3':
+				return 'g';
+			case '4':
+				return 'mg';
+			case '5':
+				return 'l';
+			case '6':
+				return '12 Stück';
+			case '7':
+				return '2er Pack';
+			case '8':
+				return 'Ballen';
+			case '9':
+				return 'Behälter';
+			case '10':
+				return 'Beutel';
+			case '11':
+				return 'Blatt';
+			case '12':
+				return 'Block';
+			case '13':
+				return 'Block';
+			case '14':
+				return 'Bogen';
+			case '15':
+				return 'Box';
+			case '16':
+				return 'Bund';
+			case '17':
+				return 'Container';
+			case '18':
+				return 'Dose';
+			case '19':
+				return 'Dose/Büchse';
+			case '20':
+				return 'Dutzend';
+			case '21':
+				return 'Eimer';
+			case '22':
+				return 'Etui';
+			case '23':
+				return 'Fass';
+			case '24':
+				return 'Flasche';
+			case '25':
+				return 'Flüssigunze';
+			case '26':
+				return 'Glas/Gefäß';
+			case '27':
+				return 'Karton';
+			case '28':
+				return 'Kartonage';
+			case '29':
+				return 'Kit';
+			case '30':
+				return 'Knäuel';
+			case '31':
+				return 'm';
+			case '32':
+				return 'ml';
+			case '33':
+				return 'mm';
+			case '34':
+				return 'Paar';
+			case '35':
+				return 'Päckchen';
+			case '36':
+				return 'Paket';
+			case '37':
+				return 'Palette';
+			case '38':
+				return 'm²';
+			case '39':
+				return 'cm²';
+			case '40':
+				return 'mm²';
+			case '41':
+				return 'cm²';
+			case '42':
+				return 'mm²';
+			case '43':
+				return 'Rolle';
+			case '44':
+				return 'Sack';
+			case '45':
+				return 'Satz';
+			case '46':
+				return 'Spule';
+			case '47':
+				return 'Stück';
+			case '48':
+				return 'Tube/Rohr';
+			case '49':
+				return 'Unze';
+			case '50':
+				return 'Wascheinheit';
+			case '51':
+				return 'cm';
+			case '52':
+				return 'Zoll';
+			
+			default:
+				return '';
+        }
+    }
 
 
     /**
