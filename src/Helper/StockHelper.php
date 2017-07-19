@@ -132,7 +132,7 @@ class StockHelper
             return false;
         }
 
-        // else if stock is unlimited by kauflux config condition or stock is positive
+        // else if stock is unlimited by lenando config condition or stock is positive
         return true;
     }
 }
