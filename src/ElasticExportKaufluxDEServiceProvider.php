@@ -1,15 +1,15 @@
 <?php
 
-namespace ElasticExportKaufluxDE;
+namespace ElasticExportlenandoDE;
 
 use Plenty\Modules\DataExchange\Services\ExportPresetContainer;
 use Plenty\Plugin\DataExchangeServiceProvider;
 
 /**
- * Class ElasticExportKaufluxDEServiceProvider
- * @package ElasticExportKaufluxDE
+ * Class ElasticExportlenandoDEServiceProvider
+ * @package ElasticExportlenandoDE
  */
-class ElasticExportKaufluxDEServiceProvider extends DataExchangeServiceProvider
+class ElasticExportlenandoDEServiceProvider extends DataExchangeServiceProvider
 {
     /**
      * Abstract function for registering the service provider.
@@ -27,9 +27,9 @@ class ElasticExportKaufluxDEServiceProvider extends DataExchangeServiceProvider
     public function exports(ExportPresetContainer $container)
     {
         $container->add(
-            'KaufluxDE-Plugin',
-            'ElasticExportKaufluxDE\ResultField\KaufluxDE',
-            'ElasticExportKaufluxDE\Generator\KaufluxDE',
+            'lenandoDE-Plugin',
+            'ElasticExportlenandoDE\ResultField\lenandoDE',
+            'ElasticExportlenandoDE\Generator\lenandoDE',
             '',
             true,
             true
