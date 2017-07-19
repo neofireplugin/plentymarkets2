@@ -365,7 +365,7 @@ class lenandoDE extends CSVPluginGenerator
                 'FreeVar2' 			=> $variation['data']['item']['free2'],
                 'FreeVar3' 			=> $variation['data']['item']['free3'],
                 'InhaltMenge' 		=> $basePriceList['lot'],
-                'InhaltEinheit' 	=> $basePriceList['unit'], //TODO use Kauflux measurements
+                'InhaltEinheit' 	=> $basePriceList['unit'], //TODO use lenando measurements
                 'InhaltVergleich' 	=> '',
                 'HerstellerArtNr' 	=> $variation['data']['variation']['model'],
             ];
