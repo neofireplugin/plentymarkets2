@@ -400,6 +400,7 @@ class lenandoDE extends CSVPluginGenerator
             
             
             $attributenliste = (strlen($attributes) ? ' | ' . $attributes : '');
+            $attributenliste = substr("$attributenliste", 3);
             
             if($attributenliste!=str_replace("Zustand:","",$attributenliste)){
             	$attribut_teil1 = explode("Zustand:", $attributenliste);
