@@ -1,12 +1,12 @@
 <?php
 
-namespace ElasticExportKaufluxDE\Generator;
+namespace ElasticExportlenandoDE\Generator;
 
 use ElasticExport\Helper\ElasticExportPriceHelper;
 use ElasticExport\Helper\ElasticExportStockHelper;
-use ElasticExportKaufluxDE\Helper\MarketHelper;
-use ElasticExportKaufluxDE\Helper\PropertyHelper;
-use ElasticExportKaufluxDE\Helper\StockHelper;
+use ElasticExportlenandoDE\Helper\MarketHelper;
+use ElasticExportlenandoDE\Helper\PropertyHelper;
+use ElasticExportlenandoDE\Helper\StockHelper;
 use Plenty\Modules\DataExchange\Contracts\CSVPluginGenerator;
 use Plenty\Modules\Helper\Services\ArrayHelper;
 use Plenty\Modules\DataExchange\Models\FormatSetting;
@@ -17,14 +17,14 @@ use Plenty\Modules\Item\Search\Contracts\VariationElasticSearchScrollRepositoryC
 use Plenty\Plugin\Log\Loggable;
 
 /**
- * Class KaufluxDE
- * @package ElasticExportKaufluxDE\Generator
+ * Class lenandoDE
+ * @package ElasticExportlenandoDE\Generator
  */
-class KaufluxDE extends CSVPluginGenerator
+class lenandoDE extends CSVPluginGenerator
 {
     use Loggable;
 
-    const KAUFLUX_DE = 116.00;
+    const LENANDO_DE = 116.00;
 
     const DELIMITER = ";";
 
@@ -103,7 +103,7 @@ class KaufluxDE extends CSVPluginGenerator
     ];
 
     /**
-     * KaufluxDE constructor.
+     * lenandoDE constructor.
      *
      * @param ArrayHelper $arrayHelper
      * @param PropertyHelper $propertyHelper
@@ -154,7 +154,7 @@ class KaufluxDE extends CSVPluginGenerator
 
             do
             {
-                $this->getLogger(__METHOD__)->debug('ElasticExportKaufluxDE::log.writtenLines', [
+                $this->getLogger(__METHOD__)->debug('ElasticExportlenandoDE::log.writtenLines', [
                     'Lines written' => $limit,
                 ]);
 
@@ -169,13 +169,13 @@ class KaufluxDE extends CSVPluginGenerator
                 // Get the data from Elastic Search
                 $resultList = $elasticSearch->execute();
 
-                $this->getLogger(__METHOD__)->debug('ElasticExportKaufluxDE::log.esDuration', [
+                $this->getLogger(__METHOD__)->debug('ElasticExportlenandoDE::log.esDuration', [
                     'Elastic Search duration' => microtime(true) - $esStartTime,
                 ]);
 
                 if(count($resultList['error']) > 0)
                 {
-                    $this->getLogger(__METHOD__)->error('ElasticExportKaufluxDE::log.occurredElasticSearchErrors', [
+                    $this->getLogger(__METHOD__)->error('ElasticExportlenandoDE::log.occurredElasticSearchErrors', [
                         'Error message' => $resultList['error'],
                     ]);
                 }
@@ -198,7 +198,7 @@ class KaufluxDE extends CSVPluginGenerator
                         // If filtered by stock is set and stock is negative, then skip the variation
                         if($this->elasticExportStockHelper->isFilteredByStock($variation, $filter) === true)
                         {
-                            $this->getLogger(__METHOD__)->info('ElasticExportKaufluxDE::log.variationNotPartOfExportStock', [
+                            $this->getLogger(__METHOD__)->info('ElasticExportlenandoDE::log.variationNotPartOfExportStock', [
                                 'VariationId' => (string)$variation['id']
                             ]);
 
@@ -228,7 +228,7 @@ class KaufluxDE extends CSVPluginGenerator
                         }
                         catch(\Throwable $throwable)
                         {
-                            $this->getLogger(__METHOD__)->error('ElasticExportKaufluxDE::logs.fillRowError', [
+                            $this->getLogger(__METHOD__)->error('ElasticExportlenandoDE::logs.fillRowError', [
                                 'Error message ' => $throwable->getMessage(),
                                 'Error line'     => $throwable->getLine(),
                                 'VariationId'    => (string)$variation['id']
@@ -239,7 +239,7 @@ class KaufluxDE extends CSVPluginGenerator
                         $limit++;
                     }
 
-                    $this->getLogger(__METHOD__)->debug('ElasticExportKaufluxDE::log.buildRowsDuration', [
+                    $this->getLogger(__METHOD__)->debug('ElasticExportlenandoDE::log.buildRowsDuration', [
                         'Build rows duration' => microtime(true) - $buildRowsStartTime,
                     ]);
                 }
@@ -247,7 +247,7 @@ class KaufluxDE extends CSVPluginGenerator
             } while ($elasticSearch->hasNext());
         }
 
-        $this->getLogger(__METHOD__)->debug('ElasticExportKaufluxDE::log.fileGenerationDuration', [
+        $this->getLogger(__METHOD__)->debug('ElasticExportlenandoDE::log.fileGenerationDuration', [
             'Whole file generation duration' => microtime(true) - $startTime,
         ]);
     }
@@ -304,7 +304,7 @@ class KaufluxDE extends CSVPluginGenerator
      */
     private function buildRow($variation, KeyValue $settings)
     {
-        $this->getLogger(__METHOD__)->debug('ElasticExportKaufluxDE::log.variationConstructRow', [
+        $this->getLogger(__METHOD__)->debug('ElasticExportlenandoDE::log.variationConstructRow', [
             'Data row duration' => 'Row printing start'
         ]);
 
@@ -336,7 +336,7 @@ class KaufluxDE extends CSVPluginGenerator
 
             $data = [
                 'GroupID' 			=> $variation['data']['item']['id'],
-                'BestellNr' 		=> $this->elasticExportHelper->generateSku($variation['id'], self::KAUFLUX_DE, 0, $variation['data']['skus'][0]['sku']),
+                'BestellNr' 		=> $this->elasticExportHelper->generateSku($variation['id'], self::LENANDO_DE, 0, $variation['data']['skus'][0]['sku']),
                 'EAN' 				=> $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode')),
                 'Hersteller' 		=> $manufacturer,
                 'BestandModus' 		=> $this->marketHelper->getConfigValue('stockCondition'),
@@ -356,7 +356,7 @@ class KaufluxDE extends CSVPluginGenerator
                 'Preis' 			=> $priceList['price'],
                 'MwSt' 				=> $priceList['vatValue'],
                 'UVP' 				=> $priceList['recommendedRetailPrice'],
-                'Katalog1' 			=> $this->elasticExportHelper->getCategoryMarketplace((int)$variation['data']['defaultCategories'][0]['id'], (int)$settings->get('plentyId'), (int)self::KAUFLUX_DE),
+                'Katalog1' 			=> $this->elasticExportHelper->getCategoryMarketplace((int)$variation['data']['defaultCategories'][0]['id'], (int)$settings->get('plentyId'), (int)self::LENANDO_DE),
                 'Flags' 			=> $flag,
                 'LinkXS' 			=> $itemCrossSellingList,
                 'ExtLinkDetail' 	=> $this->elasticExportHelper->getMutatedUrl($variation, $settings),
@@ -372,13 +372,13 @@ class KaufluxDE extends CSVPluginGenerator
 
             $this->addCSVContent(array_values($data));
 
-            $this->getLogger(__METHOD__)->debug('ElasticExportKaufluxDE::log.variationConstructRowFinished', [
+            $this->getLogger(__METHOD__)->debug('ElasticExportlenandoDE::log.variationConstructRowFinished', [
                 'Data row duration' => 'Row printing took: ' . (microtime(true) - $rowTime),
             ]);
         }
         else
         {
-            $this->getLogger(__METHOD__)->info('ElasticExportKaufluxDE::log.variationNotPartOfExportPrice', [
+            $this->getLogger(__METHOD__)->info('ElasticExportlenandoDE::log.variationNotPartOfExportPrice', [
                 'VariationId' => (string)$variation['id']
             ]);
         }
