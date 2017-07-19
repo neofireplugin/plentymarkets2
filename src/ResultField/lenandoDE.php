@@ -1,6 +1,6 @@
 <?php
 
-namespace ElasticExportKaufluxDE\ResultField;
+namespace ElasticExportlenandoDE\ResultField;
 
 use Plenty\Modules\Cloud\ElasticSearch\Lib\ElasticSearch;
 use Plenty\Modules\DataExchange\Contracts\ResultFields;
@@ -14,12 +14,12 @@ use Plenty\Modules\Item\Search\Mutators\SkuMutator;
 use Plenty\Modules\Item\Search\Mutators\DefaultCategoryMutator;
 
 /**
- * Class KaufluxDE
- * @package ElasticExportKaufluxDE\ResultField
+ * Class lenandoDE
+ * @package ElasticExportlenandoDE\ResultField
  */
-class KaufluxDE extends ResultFields
+class lenandoDE extends ResultFields
 {
-    const KAUFLUX_DE = 116.00;
+    const LENANDO_DE = 116.00;
 
     /**
      * @var ArrayHelper
@@ -27,7 +27,7 @@ class KaufluxDE extends ResultFields
     private $arrayHelper;
 
     /**
-     * KaufluxDE constructor.
+     * lenandoDE constructor.
      *
      * @param ArrayHelper $arrayHelper
      */
@@ -46,7 +46,7 @@ class KaufluxDE extends ResultFields
     {
         $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
 
-        $reference = $settings->get('referrerId') ? $settings->get('referrerId') : self::KAUFLUX_DE;
+        $reference = $settings->get('referrerId') ? $settings->get('referrerId') : self::LENANDO_DE;
 
         $this->setOrderByList(['item.id', ElasticSearch::SORTING_ORDER_ASC]);
 
