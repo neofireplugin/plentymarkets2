@@ -399,23 +399,23 @@ class lenandoDE extends CSVPluginGenerator
             
             
             
-            $attributenliste = (strlen($attributes) ? ',' . $attributes : '');
+            $attributenliste = (strlen($attributes) ? ' | ' . $attributes : '');
             
             if($attributenliste!=str_replace("Zustand:","",$attributenliste)){
             	$attribut_teil1 = explode("Zustand:", $attributenliste);
-				$attribut_teil2 = explode(",", $attribut_teil1[1]);
+				$attribut_teil2 = explode(" | ", $attribut_teil1[1]);
 				$zustand = $attribut_teil2[0];
             	
             }elseif($attributenliste!=str_replace("zustand:","",$attributenliste)){
             	$attribut_teil1 = explode("zustand:", $attributenliste);
-				$attribut_teil2 = explode(",", $attribut_teil1[1]);
+				$attribut_teil2 = explode(" | ", $attribut_teil1[1]);
 				$zustand = $attribut_teil2[0];
             	
             }else{
             	
-            	$zustand = '';
+            	$zustand = 'neu';
             }
-            $attributenliste = str_replace(",", " ",$attributenliste);
+            
             
             
             $effizienzklasse = $this->getItemPropertyByExternalComponent($variation, self::RAKUTEN_DE, self::PROPERTY_TYPE_ENERGY_CLASS);
