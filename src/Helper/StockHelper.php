@@ -22,7 +22,7 @@ class StockHelper
     const STOCK_AVAILABLE_NOT_LIMITED = 1;
     const STOCK_NOT_AVAILABLE = 2;
 
-    const STOCK_MAXIMUM_VALUE = 100;
+    const STOCK_MAXIMUM_VALUE = 0;
 
     /**
      * @var StockRepositoryContract
@@ -81,7 +81,7 @@ class StockHelper
             }
         }
 
-        $stock = self::STOCK_MAXIMUM_VALUE;
+		$stock = self::STOCK_MAXIMUM_VALUE;
 
         // stock is limited by lenando config condition
         if($this->marketHelper->getConfigValue('stockCondition') != 'N')
