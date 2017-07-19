@@ -143,6 +143,13 @@ class lenandoDE extends ResultFields
                 'item.free1',
                 'item.free2',
                 'item.free3',
+                'item.free4',
+                'item.free5',
+                'item.free6',
+                'item.free7',
+                'item.free8',
+                'item.free9',
+                'item.free10',
                 'item.storeSpecial',
 
                 //variation
@@ -152,6 +159,7 @@ class lenandoDE extends ResultFields
                 'variation.vatId',
                 'variation.model',
                 'variation.weightG',
+                'variation.number',
 
                 //images
                 'images.item.urlMiddle',
@@ -177,6 +185,13 @@ class lenandoDE extends ResultFields
 
                 //defaultCategories
                 'defaultCategories.id',
+                
+                //attributes
+                'attributes.attributeValueSetId',
+                'attributes.attributeId',
+                'attributes.valueId',
+                'attributes.names.name',
+                'attributes.names.lang',
 
                 //barcodes
                 'barcodes.code',
@@ -229,6 +244,13 @@ class lenandoDE extends ResultFields
             'item.free1',
             'item.free2',
             'item.free3',
+            'item.free4',
+            'item.free5',
+            'item.free6',
+            'item.free7',
+            'item.free8',
+            'item.free9',
+            'item.free10',
             'item.storeSpecial',
 
             //variation
@@ -266,6 +288,9 @@ class lenandoDE extends ResultFields
 
             //barcodes
             'barcodes',
+            
+            //attributes
+            'attributes',
 
             //properties
             'properties',
@@ -313,6 +338,15 @@ class lenandoDE extends ResultFields
             'barcodes' => [
                 'code',
                 'type',
+            ],
+            
+            //attributes
+            'attributes' => [
+                'attributeValueSetId',
+                'attributeId',
+                'valueId',
+                'names.name',
+                'names.lang',
             ],
 
             //proprieties
