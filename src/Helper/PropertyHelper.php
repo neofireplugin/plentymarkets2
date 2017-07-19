@@ -1,6 +1,6 @@
 <?php
 
-namespace ElasticExportKaufluxDE\Helper;
+namespace ElasticExportlenandoDE\Helper;
 
 use Plenty\Modules\Item\Property\Contracts\PropertyMarketReferenceRepositoryContract;
 use Plenty\Modules\Item\Property\Contracts\PropertyNameRepositoryContract;
@@ -16,7 +16,7 @@ class PropertyHelper
 {
     use Loggable;
 
-    const KAUFLUX_DE = 116.00;
+    const LENANDO_DE = 116.00;
 
     const PROPERTY_TYPE_TEXT = 'text';
     const PROPERTY_TYPE_SELECTION = 'selection';
@@ -93,9 +93,9 @@ class PropertyHelper
                     $property['property']['valueType'] != 'file')
                 {
                     $propertyName = $this->propertyNameRepository->findOne($property['property']['id'], $lang);
-                    $propertyMarketReference = $this->propertyMarketReferenceRepository->findOne($property['property']['id'], self::KAUFLUX_DE);
+                    $propertyMarketReference = $this->propertyMarketReferenceRepository->findOne($property['property']['id'], self::LENANDO_DE);
 
-                    // For kauflux we have the property as a Checkbox, so the External Component doesn't exist,
+                    // For lenando we have the property as a Checkbox, so the External Component doesn't exist,
                     // giving that empty type property cannot be accepted and it will be skipped. Also will be skipped
                     // a property which is not found or which doesn't have a property name and property market reference association
                     if(!($propertyName instanceof PropertyName) ||
@@ -105,7 +105,7 @@ class PropertyHelper
                         $propertyMarketReference->componentId == 0 ||
                         $property['property']['valueType'] == self::PROPERTY_TYPE_EMPTY)
                     {
-                        $this->getLogger(__METHOD__)->debug('ElasticExportKaufluxDE::item.variationPropertyNotAdded', [
+                        $this->getLogger(__METHOD__)->debug('ElasticExportlenandoDE::item.variationPropertyNotAdded', [
                             'ItemId'            => $variation['data']['item']['id'],
                             'VariationId'       => $variation['id'],
                             'Property'          => $property,
@@ -147,7 +147,7 @@ class PropertyHelper
 
             $this->itemPropertyCache[$variation['data']['item']['id']] = $list;
 
-            $this->getLogger(__METHOD__)->debug('ElasticExportKaufluxDE::item.variationPropertyList', [
+            $this->getLogger(__METHOD__)->debug('ElasticExportlenandoDE::item.variationPropertyList', [
                 'ItemId'        => $variation['data']['item']['id'],
                 'VariationId'   => $variation['id'],
                 'PropertyList'  => count($list) > 0 ? $list : 'no properties'
