@@ -1,13 +1,13 @@
 <?php
 
-namespace ElasticExportKaufluxDE\Helper;
+namespace ElasticExportlenandoDE\Helper;
 
 use ElasticExport\Helper\ElasticExportCoreHelper;
 use Plenty\Plugin\Log\Loggable;
 
 /**
  * Class MarketHelper
- * @package ElasticExportKaufluxDE\Helper
+ * @package ElasticExportlenandoDE\Helper
  */
 class MarketHelper
 {
