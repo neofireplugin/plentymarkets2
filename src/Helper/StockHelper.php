@@ -1,6 +1,6 @@
 <?php
 
-namespace ElasticExportKaufluxDE\Helper;
+namespace ElasticExportlenandoDE\Helper;
 
 use Illuminate\Support\Collection;
 use Plenty\Modules\StockManagement\Stock\Contracts\StockRepositoryContract;
@@ -83,7 +83,7 @@ class StockHelper
 
         $stock = self::STOCK_MAXIMUM_VALUE;
 
-        // stock is limited by kauflux config condition
+        // stock is limited by lenando config condition
         if($this->marketHelper->getConfigValue('stockCondition') != 'N')
         {
             // if stock limitation is available, but stock is not limited
@@ -126,7 +126,7 @@ class StockHelper
     {
         $stock = $this->getStock($variation);
 
-        // if stock is limited by kauflux config condition and stock is negative
+        // if stock is limited by lenando config condition and stock is negative
         if($this->marketHelper->getConfigValue('stockCondition') != 'N' && $stock <= 0)
         {
             return false;
