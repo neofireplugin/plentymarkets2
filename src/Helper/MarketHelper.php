@@ -1,10 +1,7 @@
 <?php
-
 namespace ElasticExportlenandoDE\Helper;
-
 use ElasticExport\Helper\ElasticExportCoreHelper;
 use Plenty\Plugin\Log\Loggable;
-
 /**
  * Class MarketHelper
  * @package ElasticExportlenandoDE\Helper
@@ -12,17 +9,14 @@ use Plenty\Plugin\Log\Loggable;
 class MarketHelper
 {
     use Loggable;
-
     /**
      * @var ElasticExportCoreHelper
      */
     private $elasticExportHelper;
-
     /**
      * @var array
      */
     private $configCache = [];
-
     /**
      * MarketHelper constructor.
      * @param ElasticExportCoreHelper $elasticExportHelper
@@ -31,7 +25,6 @@ class MarketHelper
     {
         $this->elasticExportHelper = $elasticExportHelper;
     }
-
     /**
      * Get the config for the market.
      *
@@ -44,10 +37,8 @@ class MarketHelper
         {
             $this->configCache = $this->elasticExportHelper->getConfig($market);
         }
-
         return $this->configCache;
     }
-
     /**
      * Get the value of a specific key from the configuration.
      *
@@ -57,12 +48,10 @@ class MarketHelper
     public function getConfigValue(string $key):string
     {
         $config = $this->getConfig();
-
         if(is_array($config) && array_key_exists($key, $config))
         {
             return (string) $config[$key];
         }
-
         return '';
     }
 }
