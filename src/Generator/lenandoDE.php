@@ -40,9 +40,9 @@ class lenandoDE extends CSVPluginGenerator
 
     const DELIMITER = ";";
 	
-    const STATUS_VISIBLE = 3;
+    const STATUS_VISIBLE = 1;
     const STATUS_LOCKED = 1;
-    const STATUS_HIDDEN = 2;
+    const STATUS_HIDDEN = 1;
 
     /**
      * @var ElasticExportCoreHelper $elasticExportHelper
@@ -745,8 +745,8 @@ class lenandoDE extends CSVPluginGenerator
     private function getAttributeNameValueCombination($variation, KeyValue $settings):string
     {
         $attributes = '';
-        $attributeName = $this->elasticExportHelper->getAttributeName($variation, $settings, ',');
-        $attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ',');
+        $attributeName = $this->elasticExportHelper->getAttributeName($variation, $settings, ' | ');
+        $attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ' | ');
         if(strlen($attributeName) && strlen($attributeValue))
         {
             $attributes = $this->elasticExportHelper->getAttributeNameAndValueCombination($attributeName, $attributeValue);
