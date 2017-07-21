@@ -1,5 +1,13 @@
 # Release Notes für Elastic Export lenando.de
 
+## v1.0.3 (2017-07-21)
+
+### Hinzugefügt
+- sortierung der Bilder bei Variationen
+
+### geändert
+- komplett neue Struktur
+
 ## v1.0.2 (2017-07-12)
 
 ### Hinzugefügt
