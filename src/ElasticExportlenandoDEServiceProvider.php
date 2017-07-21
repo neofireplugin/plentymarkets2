@@ -56,7 +56,7 @@ class ElasticExportlenandoDEServiceProvider extends DataExchangeServiceProvider
 
         $container->add(
 
-            'lenandoDE-Plugin',
+            'lenandoDE',
 
             'ElasticExportlenandoDE\ResultField\lenandoDE',
 
