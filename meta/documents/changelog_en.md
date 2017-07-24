@@ -1,5 +1,13 @@
 # Release Notes for Elastic Export lenando.de
 
+## v1.0.4 (2017-07-24)
+
+### Hinzugefügt
+- Item condition from Master Item or from an Attribut
+
+### geändert
+- new Sort of the Attributes
+
 ## v1.0.3 (2017-07-21)
 
 ### Hinzugefügt
