@@ -1,5 +1,13 @@
 # Release Notes für Elastic Export lenando.de
 
+## v1.0.4 (2017-07-24)
+
+### Hinzugefügt
+- Produktzustand vom Hauptartikel oder von einem Attribut
+
+### geändert
+- neue Sortierreihenfolge der Attribute
+
 ## v1.0.3 (2017-07-21)
 
 ### Hinzugefügt
