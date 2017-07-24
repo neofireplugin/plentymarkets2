@@ -359,7 +359,22 @@ class lenandoDE extends CSVPluginGenerator
             	
             }else{
             	
-            	$zustand = 'neu';
+            	if((int)$variation['data']['item']['condition']['id'] == '0'){
+            		$zustand = 'NEU';
+            	}elseif((int)$variation['data']['item']['condition']['id'] == '1'){
+            		$zustand = 'GEBRAUCHT';
+            	}elseif((int)$variation['data']['item']['condition']['id'] == '2'){
+            		$zustand = 'NEU & OVP';
+    			}elseif((int)$variation['data']['item']['condition']['id'] == '3'){
+            		$zustand = 'NEU mit Etikett';            	
+				}elseif((int)$variation['data']['item']['condition']['id'] == '4'){
+            		$zustand = 'B-WARE';           	
+            	}else{
+            		$zustand = 'NEU';
+            	}
+            	
+            
+            	
             }
             
             
@@ -681,14 +696,60 @@ class lenandoDE extends CSVPluginGenerator
     private function getAttributeNameValueCombination($variation, KeyValue $settings):string
     {
         $attributes = '';
+        
         $attributeName = $this->elasticExportHelper->getAttributeName($variation, $settings, ' | ');
+        
         $attributeValue = $this->elasticExportHelper->getAttributeValueSetShortFrontendName($variation, $settings, ' | ');
+        
+        
         if(strlen($attributeName) && strlen($attributeValue))
         {
-            $attributes = $this->elasticExportHelper->getAttributeNameAndValueCombination($attributeName, $attributeValue);
+            $attributes = $this->getAttributeNameAndValueCombinations($attributeName, $attributeValue);
         }
         return $attributes;
     }
+    
+    
+    
+    
+/**
+	 * Returns the attribute name and value combination by delimiter.
+	 *
+     * @param string $attributeNames
+     * @param string $attributeValues
+     * @param string $delimiter
+     * @return string
+     */
+    public function getAttributeNameAndValueCombinations(string $attributeNames, string $attributeValues, string $delimiter = '|'):string
+    {
+        $attributes = '';
+        $attributeNameList = array();
+        $attributeValueList = array();
+        if (strlen($attributeNames) && strlen($attributeValues))
+        {
+            $attributeNameList = explode('|', $attributeNames);
+            $attributeValueList = explode('|', $attributeValues);
+        }
+        if (count($attributeNameList) && count($attributeValueList))
+        {
+            foreach ($attributeNameList as $index => $attributeName)
+            {
+                if ($index == 0)
+                {
+                    $attributes .= $attributeNameList[$index]. ':' . $attributeValueList[$index];
+                }
+                else
+                {
+                    $attributes .= $delimiter. '' . $attributeNameList[$index]. ':' . $attributeValueList[$index];
+                }
+            }
+        }
+        return $attributes;
+    }
+    
+    
+    
+    
     /**
      * Create the ids list of cross sold items.
      *
