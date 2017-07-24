@@ -281,6 +281,8 @@ class lenandoDE extends ResultFields
                 'item.id',
 
                 'item.manufacturer.id',
+                
+                'item.condition',
 
                 'item.free1',
 
