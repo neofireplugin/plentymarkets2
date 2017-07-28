@@ -720,15 +720,15 @@ class lenandoDE extends CSVPluginGenerator
      * @param string $delimiter
      * @return string
      */
-    public function getAttributeNameAndValueCombinations(string $attributeNames, string $attributeValues, string $delimiter = '|'):string
+    public function getAttributeNameAndValueCombinations(string $attributeNames, string $attributeValues, string $delimiter = ' | '):string
     {
         $attributes = '';
         $attributeNameList = array();
         $attributeValueList = array();
         if (strlen($attributeNames) && strlen($attributeValues))
         {
-            $attributeNameList = explode('|', $attributeNames);
-            $attributeValueList = explode('|', $attributeValues);
+            $attributeNameList = explode(' | ', $attributeNames);
+            $attributeValueList = explode(' | ', $attributeValues);
         }
         if (count($attributeNameList) && count($attributeValueList))
         {
