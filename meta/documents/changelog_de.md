@@ -1,5 +1,9 @@
 # Release Notes für Elastic Export lenando.de
 
+## v1.0.5 (2017-07-28)
+### geändert
+- Leertasten der Attribute
+
 ## v1.0.4 (2017-07-24)
 
 ### Hinzugefügt
