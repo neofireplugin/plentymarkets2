@@ -1,5 +1,10 @@
 # Release Notes for Elastic Export lenando.de
 
+## v1.0.5 (2017-07-28)
+
+### geändert
+- Space of the Attributes
+
 ## v1.0.4 (2017-07-24)
 
 ### Hinzugefügt
