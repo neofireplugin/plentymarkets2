@@ -337,7 +337,7 @@ class lenandoDE extends CSVPluginGenerator
             // Get base price information list
             $basePriceList = $this->elasticExportHelper->getBasePriceList($variation, (float)$priceList['price'], $settings->get('lang'));
             // Get image list in the specified order
-            $imageList = $this->elasticExportHelper->getImageListInOrder($variation, $settings, 3, 'variationImages');
+            $imageList = $this->elasticExportHelper->getImageListInOrder($variation, $settings, 6, 'variationImages');
             // Get the flag for the store special
             $flag = $this->getStoreSpecialFlag($variation);
             
