@@ -1,5 +1,9 @@
 # Release Notes für Elastic Export lenando.de
 
+## v1.0.6 (2017-08-08)
+### geändert
+- es können jetzt bis zu 6 Bilder exportiert werden.
+
 ## v1.0.5 (2017-07-28)
 ### geändert
 - Leertasten der Attribute
