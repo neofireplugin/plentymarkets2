@@ -19,7 +19,7 @@
   "categories": [
     "3523"
   ],
-  "version": "1.0.4",
+  "version": "1.0.6",
   "require": ["ElasticExport"],
   "marketplaceName": {
     "de":"lenando.de",
