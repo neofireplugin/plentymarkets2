@@ -423,7 +423,7 @@ class lenandoDE extends CSVPluginGenerator
 			'Eigenschaft1'			=> '',
 			'Familienname2'			=> '',
 			'Eigenschaft2'			=> '',
-			'ID'					=> $this->elasticExportHelper->generateSku($variation['id'], self::LENANDO_DE, 0, $variation['data']['skus'][0]['sku']),
+			'ID'					=> $variation['data']['item']['id'],
 			'Einheit'				=> $basePriceComponentList['unit'], //$unit,
 			'Inhalt'				=> strlen($basePriceComponentList['unit']) ? number_format((float)$basePriceComponentList['content'],3,',','') : '', //$basePriceList['lot'],
 			'Freifeld1'				=> $variation['data']['item']['free1'],
