@@ -1,6 +1,11 @@
 # Release Notes for Elastic Export lenando.de
 
-## v1.0.7 (2017-08-08)
+
+## v1.0.8 (2017-08-14)
+### geändert
+- Article detection changed from SKU to Variation-ID. (trouble shooting)
+
+## v1.0.7 (2017-08-14)
 ### geändert
 - Article detection changed from SKU to Variation-ID.
 
