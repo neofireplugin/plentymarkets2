@@ -1,5 +1,9 @@
 # Release Notes für Elastic Export lenando.de
 
+## v1.0.7 (2017-08-08)
+### geändert
+- Artikelerkennung von SKU auf Variation-ID geändert.
+
 ## v1.0.6 (2017-08-08)
 ### geändert
 - es können jetzt bis zu 6 Bilder exportiert werden.
