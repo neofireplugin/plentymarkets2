@@ -1,5 +1,8 @@
 # Release Notes for Elastic Export lenando.de
 
+## v1.0.9 (2017-08-15)
+### geändert
+- condition changed to conditionApi.
 
 ## v1.0.8 (2017-08-14)
 ### geändert
