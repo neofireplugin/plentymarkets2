@@ -359,16 +359,18 @@ class lenandoDE extends CSVPluginGenerator
             	
             }else{
             	
-            	if((int)$variation['data']['item']['condition']['id'] == '0'){
+            	if((int)$variation['data']['item']['conditionApi']['id'] == '0'){
             		$zustand = 'NEU';
-            	}elseif((int)$variation['data']['item']['condition']['id'] == '1'){
-            		$zustand = 'GEBRAUCHT';
-            	}elseif((int)$variation['data']['item']['condition']['id'] == '2'){
-            		$zustand = 'NEU & OVP';
-    			}elseif((int)$variation['data']['item']['condition']['id'] == '3'){
-            		$zustand = 'NEU mit Etikett';            	
-				}elseif((int)$variation['data']['item']['condition']['id'] == '4'){
-            		$zustand = 'B-WARE';           	
+            	}elseif((int)$variation['data']['item']['conditionApi']['id'] == '1'){
+            		$zustand = 'Gebraucht wie neu';
+            	}elseif((int)$variation['data']['item']['conditionApi']['id'] == '2'){
+            		$zustand = 'Gebraucht sehr gut';
+    		}elseif((int)$variation['data']['item']['conditionApi']['id'] == '3'){
+            		$zustand = 'Gebraucht gut';            	
+		}elseif((int)$variation['data']['item']['conditionApi']['id'] == '4'){
+            		$zustand = 'Gebraucht annehmbar';  
+		}elseif((int)$variation['data']['item']['conditionApi']['id'] == '5'){
+            		$zustand = 'B-Ware';    
             	}else{
             		$zustand = 'NEU';
             	}
