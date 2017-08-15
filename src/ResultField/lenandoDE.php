@@ -283,6 +283,8 @@ class lenandoDE extends ResultFields
                 'item.manufacturer.id',
                 
                 'item.condition',
+                
+                'item.conditionApi',
 
                 'item.free1',
 
@@ -483,6 +485,10 @@ class lenandoDE extends ResultFields
             //item
 
             'item.id',
+            
+            'item.condition',
+            
+            'item.conditionApi',
 
             'item.manufacturer.id',
 
