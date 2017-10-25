@@ -1,45 +1,49 @@
 # Release Notes for Elastic Export lenando.de
 
 ## v1.0.9 (2017-08-15)
-### geändert
+### Changed
+- stock calculation changed.
+
+## v1.0.9 (2017-08-15)
+### Changed
 - condition changed to conditionApi.
 
 ## v1.0.8 (2017-08-14)
-### geändert
+### Changed
 - Article detection changed from SKU to Variation-ID. (trouble shooting)
 
 ## v1.0.7 (2017-08-14)
-### geändert
+### Changed
 - Article detection changed from SKU to Variation-ID.
 
 ## v1.0.6 (2017-08-08)
-### geändert
+### Changed
 - It is now possible to export up to 6 images.
 
 ## v1.0.5 (2017-07-28)
 
-### geändert
+### Changed
 - Space of the Attributes
 
 ## v1.0.4 (2017-07-24)
 
-### Hinzugefügt
+### Added
 - Item condition from Master Item or from an Attribut
 
-### geändert
+### Changed
 - new Sort of the Attributes
 
 ## v1.0.3 (2017-07-21)
 
-### Hinzugefügt
+### Added
 - sort Images by Variation
 
-### geändert
+### Changed
 - complete new structur
 
 ## v1.0.2 (2017-07-12)
 
-### Hinzugefügt
+### Added
 - Add all Units
 
 ## v1.0.1 (2017-07-05)
