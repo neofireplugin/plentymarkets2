@@ -1,5 +1,9 @@
 # Release Notes für Elastic Export lenando.de
 
+## v1.0.10 (2017-10-25)
+### geändert
+- Bestandsbrechnung erneut
+
 ## v1.0.9 (2017-08-15)
 ### geändert
 - Zustand zu API Zustand geändert.
