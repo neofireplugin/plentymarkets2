@@ -5,39 +5,22 @@ use Plenty\Modules\StockManagement\Stock\Contracts\StockRepositoryContract;
 use Plenty\Modules\StockManagement\Stock\Models\Stock;
 use Plenty\Plugin\Log\Loggable;
 use Plenty\Repositories\Models\PaginatedResult;
-/**
- * Class StockHelper
- * @package ElasticExportIdealoDE\Helper
- */
 class StockHelper
 {
     use Loggable;
     const STOCK_WAREHOUSE_TYPE = 'sales';
-    const STOCK_AVAILABLE_LIMITED = 0;
-    const STOCK_AVAILABLE_NOT_LIMITED = 1;
-    const STOCK_NOT_AVAILABLE = 2;
-    const STOCK_MAXIMUM_VALUE = 0;
     /**
      * @var StockRepositoryContract
      */
     private $stockRepository;
     /**
-     * @var MarketHelper
-     */
-    private $marketHelper;
-    /**
      * StockHelper constructor.
      *
      * @param StockRepositoryContract $stockRepositoryContract
-     * @param MarketHelper $marketHelper
      */
-    public function __construct(
-        StockRepositoryContract $stockRepositoryContract,
-        MarketHelper $marketHelper
-    )
+    public function __construct(StockRepositoryContract $stockRepositoryContract)
     {
         $this->stockRepository = $stockRepositoryContract;
-        $this->marketHelper = $marketHelper;
     }
     /**
      * Calculates the stock based depending on different limits.
@@ -47,7 +30,7 @@ class StockHelper
      */
     public function getStock($variation):int
     {
-        $stockNet = 0;
+        $stock = $stockNet = 0;
         if($this->stockRepository instanceof StockRepositoryContract)
         {
             $this->stockRepository->setFilters(['variationId' => $variation['id']]);
@@ -67,52 +50,40 @@ class StockHelper
                 }
             }
         }
-		$stock = self::STOCK_MAXIMUM_VALUE;
-        // stock is limited by lenando config condition
-        if($this->marketHelper->getConfigValue('stockCondition') != 'N')
+        // get stock
+        if($variation['data']['variation']['stockLimitation'] == 2)
         {
-            // if stock limitation is available, but stock is not limited
-            if($variation['data']['variation']['stockLimitation'] == self::STOCK_AVAILABLE_NOT_LIMITED && $stockNet > 0)
+            $stock = 999;
+        }
+        elseif($variation['data']['variation']['stockLimitation'] == 1 && $stockNet > 0)
+        {
+            if($stockNet > 999)
             {
-                if($stockNet > 999)
-                {
-                    $stock = 999;
-                }
-                else
-                {
-                    $stock = $stockNet;
-                }
+                $stock = 999;
             }
-            // if stock limitation is available and stock is limited
-            elseif($variation['data']['variation']['stockLimitation'] == self::STOCK_AVAILABLE_LIMITED && $stockNet > 0)
+            else
             {
-                if($stockNet > 999)
+                $stock = $stockNet;
+            }
+        }
+        elseif($variation['data']['variation']['stockLimitation'] == 0)
+        {
+            if($stockNet > 999)
+            {
+                $stock = 999;
+            }
+            else
+            {
+                if($stockNet > 0)
                 {
-                    $stock = 999;
+                    $stock = $stockNet;
                 }
                 else
                 {
-                    $stock = $stockNet;
+                    $stock = 999;
                 }
             }
         }
         return $stock;
-    }
-    /**
-     * Check if stock available.
-     *
-     * @param  array $variation
-     * @return bool
-     */
-    public function isValid($variation):bool
-    {
-        $stock = $this->getStock($variation);
-        // if stock is limited by lenando config condition and stock is negative
-        if($this->marketHelper->getConfigValue('stockCondition') != 'N' && $stock <= 0)
-        {
-            return false;
-        }
-        // else if stock is unlimited by lenando config condition or stock is positive
-        return true;
     }
 }
