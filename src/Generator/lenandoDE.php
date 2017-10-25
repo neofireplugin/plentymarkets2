@@ -203,11 +203,7 @@ class lenandoDE extends CSVPluginGenerator
                             ]);
                             continue;
                         }
-                        // If is not valid, then skip the variation
-                        if(!$this->stockHelper->isValid($variation))
-                        {
-                            continue;
-                        }
+			 
                         try
                         {
                             // Set the caches if we have the first variation or when we have the first variation of an item
