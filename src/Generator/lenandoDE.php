@@ -1,4 +1,5 @@
 <?php
+
 namespace ElasticExportlenandoDE\Generator;
 use ElasticExport\Helper\ElasticExportPriceHelper;
 use ElasticExport\Helper\ElasticExportStockHelper;
@@ -9,6 +10,7 @@ use Plenty\Modules\DataExchange\Contracts\CSVPluginGenerator;
 use Plenty\Modules\Helper\Services\ArrayHelper;
 use Plenty\Modules\DataExchange\Models\FormatSetting;
 use ElasticExport\Helper\ElasticExportCoreHelper;
+use ElasticExport\Helper\ElasticExportItemHelper;
 use Plenty\Modules\Helper\Models\KeyValue;
 use Plenty\Modules\Item\ItemCrossSelling\Contracts\ItemCrossSellingRepositoryContract;
 use Plenty\Modules\Item\Search\Contracts\VariationElasticSearchScrollRepositoryContract;
@@ -63,6 +65,12 @@ class lenandoDE extends CSVPluginGenerator
      * @var ItemCrossSellingRepositoryContract
      */
     private $itemCrossSellingRepository;
+    
+	/**
+	 * @var ElasticExportItemHelper
+	 */
+	private $elasticExportItemHelper;
+	
     /**
      * @var ArrayHelper
      */
@@ -141,6 +149,7 @@ class lenandoDE extends CSVPluginGenerator
     {
         $this->elasticExportHelper = pluginApp(ElasticExportCoreHelper::class);
         $this->elasticExportStockHelper = pluginApp(ElasticExportStockHelper::class);
+        $this->elasticExportItemHelper = pluginApp(ElasticExportItemHelper::class, [1 => true]);
         $this->elasticExportPriceHelper = pluginApp(ElasticExportPriceHelper::class);
         $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
         $this->setDelimiter(self::DELIMITER);
@@ -424,16 +433,16 @@ class lenandoDE extends CSVPluginGenerator
 			'ID'					=> $variation['id'],
 			'Einheit'				=> $basePriceComponentList['unit'], //$unit,
 			'Inhalt'				=> strlen($basePriceComponentList['unit']) ? number_format((float)$basePriceComponentList['content'],3,',','') : '', //$basePriceList['lot'],
-			'Freifeld1'				=> $variation['data']['item']['free1'],
-			'Freifeld2'				=> $variation['data']['item']['free2'],
-			'Freifeld3'				=> $variation['data']['item']['free3'],
-			'Freifeld4'				=> $variation['data']['item']['free4'],
-			'Freifeld5'				=> $variation['data']['item']['free5'],
-			'Freifeld6'				=> $variation['data']['item']['free6'],
-			'Freifeld7'				=> $variation['data']['item']['free7'],
-			'Freifeld8'				=> $variation['data']['item']['free8'],
-			'Freifeld9'				=> $variation['data']['item']['free9'],
-			'Freifeld10'			=> $variation['data']['item']['free10'],
+			'Freifeld1'				=> 'Eigenschaft: '.$this->elasticExportItemHelper->getFreeFields($item['data']['item']['id'], 1),
+			'Freifeld2'				=> 'Eigenschaft: '.$this->elasticExportItemHelper->getFreeFields($item['data']['item']['id'], 2),
+			'Freifeld3'				=> 'Eigenschaft: '.$this->elasticExportItemHelper->getFreeFields($item['data']['item']['id'], 3),
+			'Freifeld4'				=> 'Eigenschaft: '.$this->elasticExportItemHelper->getFreeFields($item['data']['item']['id'], 4),
+			'Freifeld5'				=> 'Eigenschaft: '.$this->elasticExportItemHelper->getFreeFields($item['data']['item']['id'], 5),
+			'Freifeld6'				=> 'Eigenschaft: '.$this->elasticExportItemHelper->getFreeFields($item['data']['item']['id'], 6),
+			'Freifeld7'				=> 'Eigenschaft: '.$this->elasticExportItemHelper->getFreeFields($item['data']['item']['id'], 7),
+			'Freifeld8'				=> 'Eigenschaft: '.$this->elasticExportItemHelper->getFreeFields($item['data']['item']['id'], 8),
+			'Freifeld9'				=> 'Eigenschaft: '.$this->elasticExportItemHelper->getFreeFields($item['data']['item']['id'], 9),
+			'Freifeld10'			=> 'Eigenschaft: '.$this->elasticExportItemHelper->getFreeFields($item['data']['item']['id'], 10),
 			'baseid'				=> 'BASE-'.$variation['data']['item']['id'],
 			'basename'				=> $attributenliste,
 			'level'					=> '0',
