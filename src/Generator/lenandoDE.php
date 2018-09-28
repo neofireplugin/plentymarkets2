@@ -314,6 +314,17 @@ class lenandoDE extends CSVPluginGenerator
 				'Energieefiizienzbild',
 				'UVP',
 				'EVP',
+				'Grundpreis',
+				'Freifeld11',
+				'Freifeld12',
+				'Freifeld13',
+				'Freifeld14',
+				'Freifeld15',
+				'Freifeld16',
+				'Freifeld17',
+				'Freifeld18',
+				'Freifeld19',
+				'Freifeld20',
         );
     }
     /**
@@ -459,6 +470,17 @@ class lenandoDE extends CSVPluginGenerator
 			'Energieefiizienzbild'	=> '',
 			'UVP'					=> $priceList['recommendedRetailPrice'],
 			'EVP'					=> '',
+		    	'Grundpreis'				=> '',
+		    	'Freifeld11'				=> $this->elasticExportItemHelper->getFreeFields($variation['data']['item']['id'], 11),
+		    	'Freifeld12'				=> $this->elasticExportItemHelper->getFreeFields($variation['data']['item']['id'], 12),
+		    	'Freifeld13'				=> $this->elasticExportItemHelper->getFreeFields($variation['data']['item']['id'], 13),
+		    	'Freifeld14'				=> $this->elasticExportItemHelper->getFreeFields($variation['data']['item']['id'], 14),
+		    	'Freifeld15'				=> $this->elasticExportItemHelper->getFreeFields($variation['data']['item']['id'], 15),
+		    	'Freifeld16'				=> $this->elasticExportItemHelper->getFreeFields($variation['data']['item']['id'], 16),
+		    	'Freifeld17'				=> $this->elasticExportItemHelper->getFreeFields($variation['data']['item']['id'], 17),
+		    	'Freifeld18'				=> $this->elasticExportItemHelper->getFreeFields($variation['data']['item']['id'], 18),
+		    	'Freifeld19'				=> $this->elasticExportItemHelper->getFreeFields($variation['data']['item']['id'], 19),
+		    	'Freifeld20'				=> $this->elasticExportItemHelper->getFreeFields($variation['data']['item']['id'], 20),
             ];
             $this->addCSVContent(array_values($data));
             $this->getLogger(__METHOD__)->debug('ElasticExportlenandoDE::log.variationConstructRowFinished', [
