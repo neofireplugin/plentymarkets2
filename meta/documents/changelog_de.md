@@ -1,8 +1,12 @@
 # Release Notes für Elastic Export lenando.de
 
-## v1.0.11 (2018-10-01)
+## v1.0.12 (2018-10-01)
 ### geändert
 - Es werden 20 Freifelder exportiert.
+
+## v1.0.11 (2018-09-25)
+### geändert
+- Es werden 10 Freifelder exportiert.
 
 ## v1.0.10 (2017-10-25)
 ### geändert
