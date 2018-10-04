@@ -1,6 +1,6 @@
 # Release Notes für Elastic Export lenando.de
 
-## v1.0.13 (2018-10-01)
+## v1.0.13 (2018-10-04)
 ### geändert
 - Logs wurden angepasst.
 
