@@ -408,13 +408,15 @@ class lenandoDE extends CSVPluginGenerator
             $effizienzklasse = str_replace("8", "E",$effizienzklasse);
             $effizienzklasse = str_replace("9", "F",$effizienzklasse);
             $effizienzklasse = str_replace("10", "G",$effizienzklasse);
-            
-            $basePriceComponentList = $this->getBasePriceComponentList($variation);
-            
-	$priceList = $this->elasticExportPriceHelper->getPriceList($variation, $settings, 2, '.');
 		
-       $basePriceData = $this->elasticExportPriceHelper->getBasePriceDetails($variation, (float) $priceList['price'], $settings->get('lang'));
-           
+		
+		
+	$priceList = $this->elasticExportPriceHelper->getPriceList($variation, $settings, 2, '.');
+
+        $basePriceData = $this->elasticExportPriceHelper->getBasePriceDetails($variation, (float) $priceList['price'], $settings->get('lang'));
+		
+            
+     
             
             $data = [
             'Produktname'			=> $this->elasticExportHelper->getMutatedName($variation, $settings),
