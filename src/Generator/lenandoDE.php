@@ -552,12 +552,14 @@ class lenandoDE extends CSVPluginGenerator
     {
         $unit = $this->getUnit($variation);
         $content = (float)$variation['data']['unit']['content'];
+	/*
         $convertBasePriceContentTag = $this->elasticExportHelper->getConvertContentTag($content, 3);
         if ($convertBasePriceContentTag == true && strlen($unit))
         {
             $content = $this->elasticExportHelper->getConvertedBasePriceContent($content, $unit);
             $unit = $this->elasticExportHelper->getConvertedBasePriceUnit($unit);
         }
+	*/
         return array(
             'content'   =>  $content,
             'unit'      =>  $unit,
@@ -574,6 +576,21 @@ class lenandoDE extends CSVPluginGenerator
      */
     private function getUnit($variation):string
     {
+	    
+	    foreach($variation['data']['unit']['names'] as $unitnames){
+        	
+        	if($unitnames['lang'] === 'de'){
+        		
+        		return $unitnames['name'];
+        			
+        	}
+		    
+		return '';
+        
+        }
+	
+	/*
+	    
         switch((int) $variation['data']['unit']['id'])
         {
             case '1':
@@ -684,6 +701,7 @@ class lenandoDE extends CSVPluginGenerator
 			default:
 				return '';
         }
+	*/
     }
     /**
      * Get the item value for the store special flag.
