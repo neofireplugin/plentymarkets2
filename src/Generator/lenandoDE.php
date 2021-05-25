@@ -412,9 +412,7 @@ class lenandoDE extends CSVPluginGenerator
 		
 		
 	$priceList = $this->elasticExportPriceHelper->getPriceList($variation, $settings, 2, '.');
-
         $basePriceData = $this->elasticExportPriceHelper->getBasePriceDetails($variation, (float) $priceList['price'], $settings->get('lang'));
-		
         $basePriceComponentList = $this->getBasePriceComponentList($variation);
      
             
@@ -447,7 +445,7 @@ class lenandoDE extends CSVPluginGenerator
 			'Familienname2'			=> '',
 			'Eigenschaft2'			=> '',
 			'ID'				=> $variation['id'],
-			'Einheit'			=> $basePriceData['unitLongName'],
+			'Einheit'			=> $this->getUnit($basePriceData['unitLongName']),
 			'Inhalt'			=> strlen($basePriceData['unitLongName']) ? number_format((float)$basePriceComponentList['content'],3,',','') : '',
 			'Freifeld1'			=> $this->elasticExportItemHelper->getFreeFields($variation['data']['item']['id'], 1),
 			'Freifeld2'			=> $this->elasticExportItemHelper->getFreeFields($variation['data']['item']['id'], 2),
@@ -549,165 +547,63 @@ class lenandoDE extends CSVPluginGenerator
     
     
     /**
-     * Get necessary components to enable Rakuten to calculate a base price for the variation
+     * Get necessary components to enable lenando to calculate a base price for the variation
      * @param array $item
      * @return array
      */
     private function getBasePriceComponentList($variation):array
     {
-        $unit = $this->getUnit($variation);
+        
         $content = (float)$variation['data']['unit']['content'];
-	   
-	/*
-        $convertBasePriceContentTag = $this->elasticExportHelper->getConvertContentTag($content, 3);
-        if ($convertBasePriceContentTag == true && strlen($unit))
-        {
-            $content = $this->elasticExportHelper->getConvertedBasePriceContent($content, $unit);
-            $unit = $this->elasticExportHelper->getConvertedBasePriceUnit($unit);
-        }
-	*/
+	  
 	    
         return array(
             'content'   =>  $content,
-            'unit'      =>  $unit,
         );
     }
     
     
 /**
-     * Returns the unit, if there is any unit configured, which is allowed
-     * for the Rakuten.de API.
+     * Returns the unitname sometimes in short Text
      *
      * @param  array   $item
      * @return string
      */
-    private function getUnit($variation):string
+    private function getUnit($unitname):string
     {
         
-    	foreach($variation['data']['unit']['names'] as $unitnames){
-
-		if($unitnames['lang'] == 'de'){
-
-			return $unitnames['name'];
-
-		}
+	switch($unitname)
+        {
+			case 'Kilogramm':
+				return 'kg';
+			case 'Gramm':
+				return 'g';
+			case 'Milligramm':
+				return 'mg';
+			case 'Liter':
+				return 'l';
+			case 'Meter':
+				return 'm';
+			case 'Milliliter':
+				return 'ml';
+			case 'Millimeter':
+				return 'mm';
+			case 'Quadratmeter':
+				return 'm²';
+			case 'Quadratzentimeter':
+				return 'cm²';
+			case 'Quadratmillimeter':
+				return 'mm²';
+			case 'Quadratzentimeter':
+				return 'cm²';
+			case 'Quadratmillimeter':
+				return 'mm²';
+			case 'Zentimeter':
+				return 'cm';
+			default:
+				return $unitname;
         }
 	
-	return '';
-	    
-	/*
-	    
-	switch((int) $variation['data']['unit']['id'])
-        {
-            case '1':
-				return 'Stück';
-			case '2':
-				return 'kg';
-			case '3':
-				return 'g';
-			case '4':
-				return 'mg';
-			case '5':
-				return 'l';
-			case '6':
-				return '12 Stück';
-			case '7':
-				return '2er Pack';
-			case '8':
-				return 'Ballen';
-			case '9':
-				return 'Behälter';
-			case '10':
-				return 'Beutel';
-			case '11':
-				return 'Blatt';
-			case '12':
-				return 'Block';
-			case '13':
-				return 'Block';
-			case '14':
-				return 'Bogen';
-			case '15':
-				return 'Box';
-			case '16':
-				return 'Bund';
-			case '17':
-				return 'Container';
-			case '18':
-				return 'Dose';
-			case '19':
-				return 'Dose/Büchse';
-			case '20':
-				return 'Dutzend';
-			case '21':
-				return 'Eimer';
-			case '22':
-				return 'Etui';
-			case '23':
-				return 'Fass';
-			case '24':
-				return 'Flasche';
-			case '25':
-				return 'Flüssigunze';
-			case '26':
-				return 'Glas/Gefäß';
-			case '27':
-				return 'Karton';
-			case '28':
-				return 'Kartonage';
-			case '29':
-				return 'Kit';
-			case '30':
-				return 'Knäuel';
-			case '31':
-				return 'm';
-			case '32':
-				return 'ml';
-			case '33':
-				return 'mm';
-			case '34':
-				return 'Paar';
-			case '35':
-				return 'Päckchen';
-			case '36':
-				return 'Paket';
-			case '37':
-				return 'Palette';
-			case '38':
-				return 'm²';
-			case '39':
-				return 'cm²';
-			case '40':
-				return 'mm²';
-			case '41':
-				return 'cm²';
-			case '42':
-				return 'mm²';
-			case '43':
-				return 'Rolle';
-			case '44':
-				return 'Sack';
-			case '45':
-				return 'Satz';
-			case '46':
-				return 'Spule';
-			case '47':
-				return 'Stück';
-			case '48':
-				return 'Tube/Rohr';
-			case '49':
-				return 'Unze';
-			case '50':
-				return 'Wascheinheit';
-			case '51':
-				return 'cm';
-			case '52':
-				return 'Zoll';
-			
-			default:
-				return '';
-        }
-	*/
     }
     /**
      * Get the item value for the store special flag.
