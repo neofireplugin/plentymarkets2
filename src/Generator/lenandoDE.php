@@ -411,6 +411,9 @@ class lenandoDE extends CSVPluginGenerator
             
             $basePriceComponentList = $this->getBasePriceComponentList($variation);
             
+	$priceList = $this->elasticExportPriceHelper->getPriceList($variation, $settings, 2, '.');
+		
+       $basePriceData = $this->elasticExportPriceHelper->getBasePriceDetails($variation, (float) $priceList['price'], $settings->get('lang'));
            
             
             $data = [
@@ -442,8 +445,8 @@ class lenandoDE extends CSVPluginGenerator
 			'Familienname2'			=> '',
 			'Eigenschaft2'			=> '',
 			'ID'					=> $variation['id'],
-			'Einheit'				=> $basePriceComponentList['unit'], //$unit,
-			'Inhalt'				=> strlen($basePriceComponentList['unit']) ? number_format((float)$basePriceComponentList['content'],3,',','') : '', //$basePriceList['lot'],
+			'Einheit'				=> $basePriceData['unitLongName'], //$basePriceComponentList['unit'], //$unit,
+			'Inhalt'				=> $basePriceData['lot'],  //strlen($basePriceComponentList['unit']) ? number_format((float)$basePriceComponentList['content'],3,',','') : '', //$basePriceList['lot'],
 			'Freifeld1'				=> $this->elasticExportItemHelper->getFreeFields($variation['data']['item']['id'], 1),
 			'Freifeld2'				=> $this->elasticExportItemHelper->getFreeFields($variation['data']['item']['id'], 2),
 			'Freifeld3'				=> $this->elasticExportItemHelper->getFreeFields($variation['data']['item']['id'], 3),
