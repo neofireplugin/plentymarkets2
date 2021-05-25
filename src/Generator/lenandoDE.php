@@ -416,7 +416,7 @@ class lenandoDE extends CSVPluginGenerator
         $basePriceComponentList = $this->getBasePriceComponentList($variation);
 		
 		
-		if($this->getUnit($basePriceData['unitLongName']){
+		if($this->getUnit($basePriceData['unitLongName']) !== ''){
 		
 			$unitName = $this->getUnit($basePriceData['unitLongName']);
 			$unitContent = number_format((float)$variation['data']['unit']['content'],3,',','');
