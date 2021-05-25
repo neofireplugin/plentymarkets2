@@ -413,7 +413,7 @@ class lenandoDE extends CSVPluginGenerator
 		
 	$priceList = $this->elasticExportPriceHelper->getPriceList($variation, $settings, 2, '.');
         $basePriceData = $this->elasticExportPriceHelper->getBasePriceDetails($variation, (float) $priceList['price'], $settings->get('lang'));
-        $basePriceComponentList = $this->getBasePriceComponentList($variation);
+       
 		
 		
 		if($this->getUnit($basePriceData['unitLongName']) !== ''){
