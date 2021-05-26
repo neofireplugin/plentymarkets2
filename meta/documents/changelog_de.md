@@ -2,7 +2,7 @@
 
 ## v1.0.14 (2021-05-26)
 ### geändert
-- selbst angelegte Units werden übertragen.
+- selbst angelegte Units werden übertragen
 
 ## v1.0.13 (2018-10-04)
 ### geändert
