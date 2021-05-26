@@ -13,11 +13,11 @@
   "pluginIcon": "icon_plugin_md.png",
   "price": 0.00,
   "shortDescription": {
-    "de": "Das Plugin lenando fügt das Datenformat lenandoDE zum Elastischen Export hinzu.",
-    "en": "This plugin adds the format lenandoDE to the Elastic Export."
+    "de": "Übertragung der Artikeldaten zum Online-Marktplatz lenando.de über den elastischen Export.",
+    "en": "Item export to the online market lenando.de via the elastic export."
   },
   "categories": [
-    "3523"
+    "3881"
   ],
   "version": "1.0.14",
   "require"           : {
