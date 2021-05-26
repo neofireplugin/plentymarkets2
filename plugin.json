@@ -20,7 +20,9 @@
     "3523"
   ],
   "version": "1.0.14",
-  "require": ["ElasticExport"],
+  "require"           : {
+        "ElasticExport": "~1.0.0"
+    },
   "marketplaceName": {
     "de":"lenando.de",
     "en":"lenando.de"
