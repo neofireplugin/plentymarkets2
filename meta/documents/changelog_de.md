@@ -1,5 +1,9 @@
 # Release Notes für Elastic Export lenando.de
 
+## v1.0.15 (2021-05-27)
+### geändert
+- Logs wurden angepasst.
+
 ## v1.0.14 (2021-05-26)
 ### geändert
 - selbst angelegte Units werden übertragen
